@@ -1,6 +1,8 @@
 package com.epam.izh.rd.online.service;
 
 import com.epam.izh.rd.online.entity.User;
+import com.epam.izh.rd.online.exception.NotCorrectPasswordException;
+import com.epam.izh.rd.online.exception.UserNotFoundException;
 import com.epam.izh.rd.online.repository.IUserRepository;
 
 public class AuthenticationService implements IAuthenticationService {
@@ -48,37 +50,4 @@ public class AuthenticationService implements IAuthenticationService {
         CurrentUserManager.setCurrentLoggedInUser(null);
     }
 
-    public static class UserNotFoundException extends Exception{
-        public UserNotFoundException() {
-        }
-
-        public UserNotFoundException(String message) {
-            super(message);
-        }
-
-        public UserNotFoundException(String message, Throwable cause) {
-            super(message, cause);
-        }
-
-        public UserNotFoundException(Throwable cause) {
-            super(cause);
-        }
-    }
-
-    public static class NotCorrectPasswordException extends Exception {
-        public NotCorrectPasswordException() {
-        }
-
-        public NotCorrectPasswordException(String message) {
-            super(message);
-        }
-
-        public NotCorrectPasswordException(String message, Throwable cause) {
-            super(message, cause);
-        }
-
-        public NotCorrectPasswordException(Throwable cause) {
-            super(cause);
-        }
-    }
 }

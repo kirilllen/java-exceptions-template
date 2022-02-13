@@ -1,6 +1,9 @@
 package com.epam.izh.rd.online.service;
 
 import com.epam.izh.rd.online.entity.User;
+import com.epam.izh.rd.online.exception.NotAccessException;
+import com.epam.izh.rd.online.exception.SimplePasswordException;
+import com.epam.izh.rd.online.exception.UserAlreadyRegisteredException;
 import com.epam.izh.rd.online.repository.IUserRepository;
 import com.epam.izh.rd.online.repository.UserRepository;
 
@@ -77,55 +80,6 @@ public class UserService implements IUserService {
 
     }
 
-    public static class UserAlreadyRegisteredException extends Exception {
-        public UserAlreadyRegisteredException() {
-        }
-
-        public UserAlreadyRegisteredException(String message) {
-            super(message);
-        }
-
-        public UserAlreadyRegisteredException(String message, Throwable cause) {
-            super(message, cause);
-        }
-
-        public UserAlreadyRegisteredException(Throwable cause) {
-            super(cause);
-        }
 
 
-    }
-    public static class SimplePasswordException extends Exception {
-        public SimplePasswordException() {
-        }
-
-        public SimplePasswordException(String message) {
-            super(message);
-        }
-
-        public SimplePasswordException(String message, Throwable cause) {
-            super(message, cause);
-        }
-
-        public SimplePasswordException(Throwable cause) {
-            super(cause);
-        }
-
-    }
-    public static class NotAccessException extends Exception {
-        public NotAccessException() {
-        }
-
-        public NotAccessException(String message) {
-            super(message);
-        }
-
-        public NotAccessException(String message, Throwable cause) {
-            super(message, cause);
-        }
-
-        public NotAccessException(Throwable cause) {
-            super(cause);
-        }
-    }
 }
