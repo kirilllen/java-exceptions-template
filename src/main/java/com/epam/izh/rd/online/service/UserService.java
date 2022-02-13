@@ -32,11 +32,10 @@ public class UserService implements IUserService {
     @Override
     public User register(User user) {
 
-        //
-        // Здесь необходимо реализовать перечисленные выше проверки
-        //
+        if (user.getLogin()==null || user.getLogin().equals("") || user.getPassword()==null || user.getPassword().equals("")){
+            throw new IllegalArgumentException("Ошибка в заполнении полей");
+        }
 
-        // Если все проверки успешно пройдены, сохраняем пользователя в базу
         return userRepository.save(user);
     }
 
