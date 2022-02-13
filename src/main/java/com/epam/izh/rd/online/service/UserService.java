@@ -4,6 +4,9 @@ import com.epam.izh.rd.online.entity.User;
 import com.epam.izh.rd.online.repository.IUserRepository;
 import com.epam.izh.rd.online.repository.UserRepository;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class UserService implements IUserService {
 
     private IUserRepository userRepository;
@@ -30,12 +33,19 @@ public class UserService implements IUserService {
      * @param user - даныне регистрирующегося пользователя
      */
     @Override
-    public User register(User user) {
+    public User register(User user) throws UserAlreadyRegisteredException, SimplePasswordException {
 
         if (user.getLogin()==null || user.getLogin().equals("") || user.getPassword()==null || user.getPassword().equals("")){
             throw new IllegalArgumentException("Ошибка в заполнении полей");
         }
-
+        if(userRepository.findByLogin(user.getLogin())!=null) {
+            throw new UserAlreadyRegisteredException("Пользователь с таким "+user.getLogin()+" уже зарегистрирован");
+        }
+        Pattern pattern=Pattern.compile("\\d{1,}");
+        Matcher matcher=pattern.matcher(user.getPassword());
+        if (matcher.replaceAll("").equals("")) {
+            throw new SimplePasswordException("Пароль не соответствует требованиям безопасности");
+        }
         return userRepository.save(user);
     }
 
@@ -82,6 +92,24 @@ public class UserService implements IUserService {
         public UserAlreadyRegisteredException(Throwable cause) {
             super(cause);
         }
-    }
 
+
+    }
+    public static class SimplePasswordException extends Exception {
+        public SimplePasswordException() {
+        }
+
+        public SimplePasswordException(String message) {
+            super(message);
+        }
+
+        public SimplePasswordException(String message, Throwable cause) {
+            super(message, cause);
+        }
+
+        public SimplePasswordException(Throwable cause) {
+            super(cause);
+        }
+
+    }
 }

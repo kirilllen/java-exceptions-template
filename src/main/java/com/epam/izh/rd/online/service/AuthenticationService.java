@@ -31,7 +31,7 @@ public class AuthenticationService implements IAuthenticationService {
         if (foundUser==null) {
             throw new UserNotFoundException("Пользователь с таким логином не найден");
         }
-        else if (foundUser.getPassword().equals(user.getPassword()))  {
+        else if (!foundUser.getPassword().equals(user.getPassword()))  {
             throw new NotCorrectPasswordException("Пароль введен неверно!");
         }
 
