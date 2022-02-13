@@ -6,5 +6,5 @@ public interface IUserService {
 
     User register(User user) throws UserService.UserAlreadyRegisteredException, UserService.SimplePasswordException;
 
-    void delete(String login);
+    void delete(String login) throws UserService.NotAccessException;
 }

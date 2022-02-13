@@ -67,13 +67,13 @@ public class UserService implements IUserService {
      *
      * @param login
      */
-    public void delete(String login) {
+    public void delete(String login) throws NotAccessException {
 
-        // Здесь необходимо сделать доработку метод
-
+        try {
             userRepository.deleteByLogin(login);
-
-        // Здесь необходимо сделать доработку метода
+        } catch (UnsupportedOperationException e) {
+            throw new NotAccessException("Недостаточно прав для выполнения операции");
+        }
 
     }
 
@@ -111,5 +111,21 @@ public class UserService implements IUserService {
             super(cause);
         }
 
+    }
+    public static class NotAccessException extends Exception {
+        public NotAccessException() {
+        }
+
+        public NotAccessException(String message) {
+            super(message);
+        }
+
+        public NotAccessException(String message, Throwable cause) {
+            super(message, cause);
+        }
+
+        public NotAccessException(Throwable cause) {
+            super(cause);
+        }
     }
 }
